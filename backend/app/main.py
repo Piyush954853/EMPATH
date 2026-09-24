@@ -5,6 +5,9 @@ from app.core.settings import settings
 from app.api.hospital import router as hospital_router
 from app.api.department import router as department_router
 from app.api.ward import router as ward_router
+from app.api.room import router as room_router
+from app.api.bed import router as bed_router
+from app.api.patient import router as patient_router
 
 
 app = FastAPI(
@@ -18,6 +21,9 @@ app.include_router(auth_router)
 app.include_router(hospital_router)
 app.include_router(department_router)
 app.include_router(ward_router)
+app.include_router(room_router)
+app.include_router(bed_router)
+app.include_router(patient_router)
 
 
 @app.get("/")
