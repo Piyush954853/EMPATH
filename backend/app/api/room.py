@@ -8,6 +8,7 @@ from app.models.room import Room
 from app.models.user import User
 from app.models.ward import Ward
 from app.schemas.room import RoomCreate, RoomResponse, RoomUpdate
+from app.services.resource_access import can_access_room
 
 
 router = APIRouter(
@@ -34,9 +35,20 @@ def list_rooms(
             Room.ward_id == ward_id
         )
 
-    return db.scalars(
+    rooms = db.scalars(
         query.order_by(Room.id)
     ).all()
+
+    return [
+        room
+        for room in rooms
+        if can_access_room(
+            db,
+            current_user,
+            room.id,
+            audit=False,
+        )
+    ]
 
 
 @router.get(
@@ -50,12 +62,25 @@ def get_room(
     ),
     db: Session = Depends(get_db),
 ):
-    room = db.get(Room, room_id)
+    room = db.get(
+        Room,
+        room_id,
+    )
 
     if room is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Room not found",
+        )
+
+    if not can_access_room(
+        db,
+        current_user,
+        room_id,
+    ):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Room access denied",
         )
 
     return room
@@ -134,6 +159,16 @@ def update_room(
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Room not found",
+        )
+
+    if not can_access_room(
+        db,
+        current_user,
+        room_id,
+    ):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Room access denied",
         )
 
     update_data = request.model_dump(

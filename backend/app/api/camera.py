@@ -8,6 +8,7 @@ from app.models.camera import Camera
 from app.models.room import Room
 from app.models.user import User
 from app.schemas.camera import CameraCreate, CameraResponse, CameraUpdate
+from app.services.resource_access import can_access_room
 
 
 router = APIRouter(
@@ -34,9 +35,20 @@ def list_cameras(
             Camera.room_id == room_id
         )
 
-    return db.scalars(
+    cameras = db.scalars(
         query.order_by(Camera.id)
     ).all()
+
+    return [
+        camera
+        for camera in cameras
+        if can_access_room(
+            db,
+            current_user,
+            camera.room_id,
+            audit=False,
+        )
+    ]
 
 
 @router.get(
@@ -59,6 +71,16 @@ def get_camera(
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Camera not found",
+        )
+
+    if not can_access_room(
+        db,
+        current_user,
+        camera.room_id,
+    ):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Camera access denied",
         )
 
     return camera
@@ -135,6 +157,16 @@ def update_camera(
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Camera not found",
+        )
+
+    if not can_access_room(
+        db,
+        current_user,
+        camera.room_id,
+    ):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Camera access denied",
         )
 
     update_data = request.model_dump(

@@ -12,6 +12,7 @@ from app.schemas.department import (
     DepartmentResponse,
     DepartmentUpdate,
 )
+from app.services.resource_access import can_access_department
 
 
 router = APIRouter(
@@ -38,9 +39,20 @@ def list_departments(
             Department.hospital_id == hospital_id
         )
 
-    return db.scalars(
+    departments = db.scalars(
         query.order_by(Department.id)
     ).all()
+
+    return [
+        department
+        for department in departments
+        if can_access_department(
+            db,
+            current_user,
+            department.id,
+            audit=False,
+        )
+    ]
 
 
 @router.get(
@@ -54,12 +66,25 @@ def get_department(
     ),
     db: Session = Depends(get_db),
 ):
-    department = db.get(Department, department_id)
+    department = db.get(
+        Department,
+        department_id,
+    )
 
     if department is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Department not found",
+        )
+
+    if not can_access_department(
+        db,
+        current_user,
+        department_id,
+    ):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Department access denied",
         )
 
     return department
@@ -138,6 +163,16 @@ def update_department(
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Department not found",
+        )
+
+    if not can_access_department(
+        db,
+        current_user,
+        department_id,
+    ):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Department access denied",
         )
 
     update_data = request.model_dump(

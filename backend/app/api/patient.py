@@ -8,6 +8,7 @@ from app.models.patient import Patient
 from app.models.bed import Bed
 from app.models.user import User
 from app.schemas.patient import PatientCreate, PatientResponse, PatientUpdate
+from app.services.resource_access import can_access_bed
 
 
 router = APIRouter(
@@ -34,9 +35,20 @@ def list_patients(
             Patient.bed_id == bed_id
         )
 
-    return db.scalars(
+    patients = db.scalars(
         query.order_by(Patient.id)
     ).all()
+
+    return [
+        patient
+        for patient in patients
+        if can_access_bed(
+            db,
+            current_user,
+            patient.bed_id,
+            audit=False,
+        )
+    ]
 
 
 @router.get(
@@ -50,12 +62,25 @@ def get_patient(
     ),
     db: Session = Depends(get_db),
 ):
-    patient = db.get(Patient, patient_id)
+    patient = db.get(
+        Patient,
+        patient_id,
+    )
 
     if patient is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Patient not found",
+        )
+
+    if not can_access_bed(
+        db,
+        current_user,
+        patient.bed_id,
+    ):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Patient access denied",
         )
 
     return patient
@@ -130,6 +155,16 @@ def update_patient(
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Patient not found",
+        )
+
+    if not can_access_bed(
+        db,
+        current_user,
+        patient.bed_id,
+    ):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Patient access denied",
         )
 
     update_data = request.model_dump(

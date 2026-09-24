@@ -12,6 +12,7 @@ from app.schemas.ward import (
     WardResponse,
     WardUpdate,
 )
+from app.services.resource_access import can_access_ward
 
 
 router = APIRouter(
@@ -38,9 +39,20 @@ def list_wards(
             Ward.department_id == department_id
         )
 
-    return db.scalars(
+    wards = db.scalars(
         query.order_by(Ward.id)
     ).all()
+
+    return [
+        ward
+        for ward in wards
+        if can_access_ward(
+            db,
+            current_user,
+            ward.id,
+            audit=False,
+        )
+    ]
 
 
 @router.get(
@@ -54,12 +66,25 @@ def get_ward(
     ),
     db: Session = Depends(get_db),
 ):
-    ward = db.get(Ward, ward_id)
+    ward = db.get(
+        Ward,
+        ward_id,
+    )
 
     if ward is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Ward not found",
+        )
+
+    if not can_access_ward(
+        db,
+        current_user,
+        ward_id,
+    ):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Ward access denied",
         )
 
     return ward
@@ -138,6 +163,16 @@ def update_ward(
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Ward not found",
+        )
+
+    if not can_access_ward(
+        db,
+        current_user,
+        ward_id,
+    ):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Ward access denied",
         )
 
     update_data = request.model_dump(

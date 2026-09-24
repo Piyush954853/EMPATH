@@ -8,6 +8,7 @@ from app.models.bed import Bed
 from app.models.room import Room
 from app.models.user import User
 from app.schemas.bed import BedCreate, BedResponse, BedUpdate
+from app.services.resource_access import can_access_bed
 
 
 router = APIRouter(
@@ -34,9 +35,20 @@ def list_beds(
             Bed.room_id == room_id
         )
 
-    return db.scalars(
+    beds = db.scalars(
         query.order_by(Bed.id)
     ).all()
+
+    return [
+        bed
+        for bed in beds
+        if can_access_bed(
+            db,
+            current_user,
+            bed.id,
+            audit=False,
+        )
+    ]
 
 
 @router.get(
@@ -50,12 +62,25 @@ def get_bed(
     ),
     db: Session = Depends(get_db),
 ):
-    bed = db.get(Bed, bed_id)
+    bed = db.get(
+        Bed,
+        bed_id,
+    )
 
     if bed is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Bed not found",
+        )
+
+    if not can_access_bed(
+        db,
+        current_user,
+        bed_id,
+    ):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Bed access denied",
         )
 
     return bed
@@ -134,6 +159,16 @@ def update_bed(
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Bed not found",
+        )
+
+    if not can_access_bed(
+        db,
+        current_user,
+        bed_id,
+    ):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Bed access denied",
         )
 
     update_data = request.model_dump(
