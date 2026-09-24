@@ -8,6 +8,7 @@ from app.api.ward import router as ward_router
 from app.api.room import router as room_router
 from app.api.bed import router as bed_router
 from app.api.patient import router as patient_router
+from app.api.camera import router as camera_router
 
 
 app = FastAPI(
@@ -24,6 +25,7 @@ app.include_router(ward_router)
 app.include_router(room_router)
 app.include_router(bed_router)
 app.include_router(patient_router)
+app.include_router(camera_router)
 
 
 @app.get("/")
