@@ -16,6 +16,7 @@ from app.models.user_room import UserRoom
 from app.models.user_bed import UserBed
 from app.models.audit_log import AuditLog
 from app.models.event import Event
+from app.models.alert import Alert
 
 
 __all__ = [
@@ -37,4 +38,5 @@ __all__ = [
     "UserBed",
     "AuditLog",
     "Event",
+    "Alert",
 ]
