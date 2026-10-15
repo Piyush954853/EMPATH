@@ -1,3 +1,4 @@
+
 from pydantic import BaseModel, ConfigDict, EmailStr
 
 
@@ -16,7 +17,8 @@ class UserResponse(BaseModel):
 
     id: int
     username: str
-    email: EmailStr
+    email: str
     full_name: str
     role_id: int
     is_active: bool
+    role_name: str | None = None

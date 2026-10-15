@@ -27,6 +27,7 @@ PERMISSIONS = {
 
     # Events
     "events.read": "View monitoring events",
+    "events.create": "Create monitoring events",
     "events.acknowledge": "Acknowledge monitoring events",
 
     # Alerts

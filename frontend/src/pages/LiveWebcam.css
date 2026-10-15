@@ -1,0 +1,377 @@
+
+.live-webcam-card {
+  margin: 14px 0 20px;
+  overflow: hidden;
+  border-radius: 14px;
+}
+
+.live-webcam-card .monitoring-card-header {
+  padding: 12px 18px;
+}
+
+.live-webcam-frame {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 220px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #0b1220;
+}
+
+.live-webcam-frame.is-expanded {
+  height: 65vh;
+  min-height: 320px;
+}
+
+.live-webcam-video,
+.live-webcam-snapshot {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #0b1220;
+}
+
+.live-webcam-video.is-hidden {
+  display: none;
+}
+
+.live-webcam-snapshot {
+  object-fit: contain;
+}
+
+.live-webcam-hidden-canvas {
+  display: none;
+}
+
+/* =====================================================
+   CAMERA FEED PLACEHOLDER
+   ===================================================== */
+
+.live-webcam-placeholder {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  box-sizing: border-box;
+  color: #e2e8f0;
+  text-align: center;
+}
+
+.live-webcam-placeholder-icon {
+  display: flex;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #475569;
+  border-radius: 50%;
+  font-size: 17px;
+}
+
+.live-webcam-placeholder strong {
+  font-size: 13px;
+}
+
+.live-webcam-placeholder p {
+  max-width: 440px;
+  margin: 0;
+  color: #94a3b8;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+/* =====================================================
+   VIDEO OVERLAY
+   ===================================================== */
+
+.live-webcam-overlay {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.live-webcam-overlay span {
+  padding: 6px 9px;
+  border-radius: 6px;
+  background: rgb(15 23 42 / 82%);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.live-webcam-overlay span:first-child {
+  color: #fca5a5;
+}
+
+/* =====================================================
+   CAMERA HEALTH STATUS
+   The JSX adds live-webcam-health-{status}.
+   ===================================================== */
+
+.live-webcam-card .monitoring-status-pill {
+  flex-shrink: 0;
+  white-space: nowrap;
+  transition:
+    color 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease;
+}
+
+.live-webcam-card .monitoring-status-pill.live-webcam-health-live {
+  color: #166534;
+  background: #f0fdf4;
+  border-color: #86efac;
+}
+
+.live-webcam-card .monitoring-status-pill.live-webcam-health-starting {
+  color: #1d4ed8;
+  background: #eff6ff;
+  border-color: #93c5fd;
+}
+
+.live-webcam-card .monitoring-status-pill.live-webcam-health-stale {
+  color: #92400e;
+  background: #fffbeb;
+  border-color: #fcd34d;
+}
+
+.live-webcam-card .monitoring-status-pill.live-webcam-health-stopped {
+  color: #475569;
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.live-webcam-card .monitoring-status-pill.live-webcam-health-error {
+  color: #991b1b;
+  background: #fef2f2;
+  border-color: #fca5a5;
+}
+
+/* =====================================================
+   TOOLBAR AND CAMERA SELECTOR
+   ===================================================== */
+
+.live-webcam-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 10px;
+  padding: 12px 14px;
+}
+
+.live-webcam-camera-picker {
+  display: grid;
+  flex: 1 1 200px;
+  min-width: 0;
+  gap: 6px;
+}
+
+.live-webcam-camera-picker label {
+  color: #334155;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.live-webcam-camera-picker select {
+  width: 100%;
+  min-height: 38px;
+  padding: 8px 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #fff;
+  color: #0f172a;
+  font: inherit;
+  font-size: 12px;
+}
+
+.live-webcam-camera-picker select:focus-visible,
+.live-webcam-admin-actions button:focus-visible,
+.live-webcam-expand-button:focus-visible {
+  outline: 3px solid rgb(37 99 235 / 30%);
+  outline-offset: 2px;
+}
+
+.live-webcam-admin-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.live-webcam-admin-actions button,
+.live-webcam-expand-button {
+  min-height: 38px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.live-webcam-admin-actions button:disabled,
+.live-webcam-expand-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.live-webcam-expand-button {
+  flex-shrink: 0;
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  color: #334155;
+}
+
+.live-webcam-expand-button:hover:not(:disabled) {
+  background: #f8fafc;
+  border-color: #94a3b8;
+}
+
+/* =====================================================
+   ANALYSIS METRICS
+   ===================================================== */
+
+.live-webcam-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 9px;
+  padding: 0 14px 14px;
+}
+
+.live-webcam-metrics > div {
+  display: flex;
+  min-width: 0;
+  min-height: 58px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 8px;
+  border: 1px solid #dbe4f0;
+  border-radius: 8px;
+  background: #f8fafc;
+  text-align: center;
+}
+
+.live-webcam-metrics span {
+  color: #64748b;
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+.live-webcam-metrics strong {
+  overflow-wrap: anywhere;
+  color: #10243d;
+  font-size: 18px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* =====================================================
+   LAST FRAME / HEALTH DETAIL CARD
+   ===================================================== */
+
+.live-webcam-metrics > .live-webcam-frame-health-metric {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+}
+
+.live-webcam-frame-health-metric strong {
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.live-webcam-metrics .live-webcam-metric-note {
+  display: block;
+  max-width: 100%;
+  color: #64748b;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+/* =====================================================
+   NOTICES AND DISCLAIMER
+   ===================================================== */
+
+.live-webcam-disclaimer {
+  margin: 0;
+  padding: 0 14px 14px;
+  color: #64748b;
+  font-size: 10px;
+  line-height: 1.55;
+}
+
+.live-webcam-card .monitoring-message {
+  margin: 0 14px 12px;
+}
+
+/* =====================================================
+   RESPONSIVE LAYOUT
+   ===================================================== */
+
+@media (max-width: 620px) {
+  .live-webcam-frame {
+    height: 180px;
+  }
+
+  .live-webcam-frame.is-expanded {
+    height: 55vh;
+    min-height: 260px;
+  }
+
+  .live-webcam-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .live-webcam-toolbar {
+    align-items: stretch;
+  }
+
+  .live-webcam-camera-picker {
+    flex-basis: 100%;
+  }
+
+  .live-webcam-expand-button {
+    flex: 1 1 auto;
+  }
+
+  .live-webcam-admin-actions {
+    flex: 1 1 100%;
+  }
+
+  .live-webcam-admin-actions button {
+    flex: 1 1 auto;
+  }
+
+  .live-webcam-card .monitoring-card-header {
+    gap: 10px;
+    align-items: center;
+  }
+}
+
+@media (max-width: 360px) {
+  .live-webcam-metrics {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .live-webcam-card .monitoring-card-header {
+    padding: 10px 12px;
+  }
+
+  .live-webcam-toolbar {
+    padding: 10px;
+  }
+}

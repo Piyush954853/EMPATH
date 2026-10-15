@@ -1,0 +1,166 @@
+
+/* Admin create/edit controls for Hospital Structure */
+
+.structure-header-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.structure-admin-actions,
+.structure-admin-form-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+.structure-admin-button {
+  border: 1px solid #1879d2;
+  border-radius: 9px;
+  padding: 10px 14px;
+  background: #1879d2;
+  color: #fff;
+  font: inherit;
+  font-weight: 650;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.structure-admin-button:hover:not(:disabled) {
+  background: #1268ba;
+  border-color: #1268ba;
+  transform: translateY(-1px);
+}
+
+.structure-admin-button-secondary {
+  background: #fff;
+  color: #175b97;
+  border-color: #c9d9e9;
+}
+
+.structure-admin-button-secondary:hover:not(:disabled) {
+  background: #edf6ff;
+  color: #124b7c;
+  border-color: #9ec7ec;
+}
+
+.structure-admin-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.structure-resource-editor {
+  margin-top: 18px;
+  padding: 17px;
+  border: 1px solid #d4e1ed;
+  border-radius: 13px;
+  background: #f8fbfe;
+  color: #18324b;
+}
+
+.structure-resource-editor-heading h4 {
+  margin: 0 0 6px;
+  font-size: 17px;
+}
+
+.structure-resource-editor-heading p {
+  margin: 0 0 14px;
+  color: #647b91;
+  font-size: 13px;
+}
+
+.structure-resource-editor form {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.structure-admin-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  color: #34516b;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.structure-admin-field input,
+.structure-admin-field textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 11px;
+  border: 1px solid #c7d6e5;
+  border-radius: 8px;
+  background: #fff;
+  color: #152d43;
+  font: inherit;
+  font-weight: 400;
+  outline: none;
+}
+
+.structure-admin-field input:focus,
+.structure-admin-field textarea:focus {
+  border-color: #3288d2;
+  box-shadow: 0 0 0 3px rgba(50, 136, 210, 0.13);
+}
+
+.structure-admin-field textarea {
+  resize: vertical;
+  min-height: 74px;
+}
+
+.structure-admin-checkbox {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  color: #34516b;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.structure-admin-checkbox input {
+  width: 16px;
+  height: 16px;
+  accent-color: #1879d2;
+}
+
+.structure-admin-message {
+  margin-top: 14px;
+  border-radius: 9px;
+  padding: 11px 12px;
+  font-size: 13px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.structure-admin-message.is-success {
+  color: #146b46;
+  background: #e9f8f0;
+  border: 1px solid #bce6ce;
+}
+
+.structure-admin-message.is-error {
+  color: #9c2734;
+  background: #fff0f1;
+  border: 1px solid #f1c6ca;
+}
+
+@media (max-width: 820px) {
+  .structure-header-actions,
+  .structure-admin-actions,
+  .structure-admin-form-actions {
+    justify-content: stretch;
+  }
+
+  .structure-admin-button {
+    flex: 1 1 auto;
+  }
+}

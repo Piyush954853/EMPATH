@@ -1,0 +1,298 @@
+/* Multi-camera dashboard layout */
+.multi-camera-dashboard {
+  margin: 20px 0 24px;
+  min-width: 0;
+}
+
+.multi-camera-dashboard-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 16px;
+}
+
+.multi-camera-dashboard-header h2 {
+  margin: 5px 0 7px;
+  color: #10243d;
+  font-size: clamp(20px, 2vw, 26px);
+}
+
+.multi-camera-dashboard-header p {
+  max-width: 760px;
+  margin: 0;
+  color: #64748b;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.multi-camera-counts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 7px;
+  flex-shrink: 0;
+}
+
+.multi-camera-counts span {
+  padding: 7px 10px;
+  border: 1px solid #dbe4f0;
+  border-radius: 999px;
+  background: #f8fafc;
+  color: #334155;
+  font-size: 11px;
+  font-weight: 750;
+  white-space: nowrap;
+}
+
+.multi-camera-dashboard-tools {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) minmax(180px, 0.7fr) minmax(170px, 0.6fr) auto;
+  align-items: end;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding: 14px;
+  border: 1px solid #dbe4f0;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.multi-camera-search,
+.multi-camera-filter {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.multi-camera-search span,
+.multi-camera-filter span {
+  color: #334155;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.multi-camera-search input,
+.multi-camera-filter select {
+  width: 100%;
+  min-width: 0;
+  min-height: 39px;
+  box-sizing: border-box;
+  padding: 9px 11px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #fff;
+  color: #0f172a;
+  font: inherit;
+  font-size: 12px;
+}
+
+.multi-camera-search input:focus-visible,
+.multi-camera-filter select:focus-visible {
+  outline: 3px solid rgb(37 99 235 / 24%);
+  outline-offset: 2px;
+}
+
+.multi-camera-result-count {
+  padding: 10px 0;
+  color: #64748b;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.multi-camera-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 470px), 1fr));
+  align-items: start;
+  gap: 18px;
+}
+
+.multi-camera-grid-item {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #dbe4f0;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 3px 14px rgb(15 23 42 / 4%);
+}
+
+.multi-camera-resource-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border-bottom: 1px solid #e2e8f0;
+  background: #f8fafc;
+}
+
+.multi-camera-resource-text {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.multi-camera-resource-text strong {
+  overflow-wrap: anywhere;
+  color: #10243d;
+  font-size: 13px;
+}
+
+.multi-camera-resource-text span {
+  color: #64748b;
+  font-size: 11px;
+}
+
+.multi-camera-resource-status {
+  flex-shrink: 0;
+  padding: 5px 8px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: 9px;
+  font-weight: 850;
+  letter-spacing: 0.04em;
+}
+
+.multi-camera-resource-status.is-active {
+  border-color: #bbf7d0;
+  background: #f0fdf4;
+  color: #166534;
+}
+
+.multi-camera-resource-status.is-inactive {
+  border-color: #fecaca;
+  background: #fef2f2;
+  color: #991b1b;
+}
+
+/* Cards use a stacked layout so controls and video remain legible in a grid. */
+.multi-camera-grid .shared-playback-card {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.multi-camera-grid .shared-playback-header {
+  padding: 12px 14px;
+}
+
+.multi-camera-grid .shared-playback-header h2 {
+  font-size: 16px;
+  overflow-wrap: anywhere;
+}
+
+.multi-camera-grid .shared-playback-header p {
+  font-size: 11px;
+}
+
+.multi-camera-grid .shared-playback-layout {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+  padding: 0 12px 12px;
+}
+
+.multi-camera-grid .shared-playback-control-panel,
+.multi-camera-grid .shared-playback-view-panel {
+  min-width: 0;
+}
+
+.multi-camera-grid .shared-playback-camera-info {
+  margin-top: 0;
+}
+
+.multi-camera-grid .shared-playback-video-frame {
+  min-height: 180px;
+  max-height: 280px;
+}
+
+.multi-camera-grid .shared-playback-video {
+  max-height: 280px;
+}
+
+.multi-camera-grid .shared-playback-metrics {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.multi-camera-grid .shared-playback-disclaimer {
+  font-size: 10px;
+}
+
+.multi-camera-empty-state {
+  padding: 24px 16px;
+  border: 1px dashed #cbd5e1;
+  border-radius: 12px;
+  background: #f8fafc;
+  color: #64748b;
+  font-size: 13px;
+  text-align: center;
+}
+
+.multi-camera-dashboard-note {
+  margin: 12px 2px 0;
+  color: #64748b;
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+/* Existing clinical/events/alerts are moved into a full-width support row. */
+.monitoring-workspace.monitoring-workspace-panels-only {
+  display: block;
+  min-width: 0;
+}
+
+.monitoring-workspace-panels-only .monitoring-side-column {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  align-items: start;
+  gap: 16px;
+  min-width: 0;
+}
+
+.monitoring-workspace-panels-only .monitoring-side-card {
+  min-width: 0;
+}
+
+@media (max-width: 980px) {
+  .multi-camera-dashboard-tools {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .multi-camera-result-count {
+    padding: 10px 0;
+  }
+}
+
+@media (max-width: 760px) {
+  .multi-camera-dashboard-header {
+    flex-direction: column;
+  }
+
+  .multi-camera-counts {
+    justify-content: flex-start;
+  }
+
+  .multi-camera-dashboard-tools {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .multi-camera-result-count {
+    padding: 0;
+  }
+}
+
+@media (max-width: 520px) {
+  .multi-camera-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .multi-camera-resource-strip {
+    align-items: flex-start;
+  }
+
+  .multi-camera-grid .shared-playback-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

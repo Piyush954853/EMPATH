@@ -17,6 +17,7 @@ from app.models.user_bed import UserBed
 from app.models.audit_log import AuditLog
 from app.models.event import Event
 from app.models.alert import Alert
+from app.models.alert_handoff import AlertHandoffHistory
 
 
 __all__ = [
@@ -39,4 +40,5 @@ __all__ = [
     "AuditLog",
     "Event",
     "Alert",
+    "AlertHandoffHistory",
 ]

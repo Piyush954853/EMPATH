@@ -1,0 +1,268 @@
+
+.camera-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.camera-header-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.camera-primary-button,
+.camera-secondary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 41px;
+  padding: 10px 14px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 750;
+  cursor: pointer;
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease,
+    transform 0.18s ease;
+}
+
+.camera-primary-button {
+  color: #fff;
+  background: #1674d1;
+  border-color: #1674d1;
+  box-shadow: 0 3px 8px rgba(22, 116, 209, 0.12);
+}
+
+.camera-primary-button:hover:not(:disabled) {
+  background: #105fab;
+  border-color: #105fab;
+  transform: translateY(-1px);
+}
+
+.camera-secondary-button {
+  color: #294963;
+  background: #fff;
+  border-color: #d4e0ec;
+}
+
+.camera-secondary-button:hover:not(:disabled) {
+  background: #f4f8fc;
+  border-color: #b6cbdf;
+}
+
+.camera-primary-button:disabled,
+.camera-secondary-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.camera-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 15px;
+}
+
+.camera-summary-grid .summary-card {
+  min-width: 0;
+  min-height: 118px;
+}
+
+.camera-summary-grid .summary-card strong {
+  font-size: 30px;
+  line-height: 1.2;
+}
+
+.camera-editor {
+  padding: 23px;
+  border: 1px solid #dce5ef;
+  border-radius: 15px;
+  background: #fff;
+  box-shadow: 0 3px 14px rgba(23, 40, 61, 0.045);
+}
+
+.camera-editor-header {
+  margin-bottom: 18px;
+}
+
+.camera-editor-header h3 {
+  margin: 6px 0;
+  color: #172f48;
+  font-size: 21px;
+  font-weight: 800;
+}
+
+.camera-editor-header p {
+  margin: 0;
+  color: #71839a;
+  font-size: 13px;
+}
+
+.camera-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.camera-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 17px;
+}
+
+.camera-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  color: #405871;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.camera-field input,
+.camera-field select {
+  width: 100%;
+  min-width: 0;
+  min-height: 43px;
+  padding: 10px 12px;
+  border: 1px solid #cfdae6;
+  border-radius: 9px;
+  color: #1c3349;
+  background: #fff;
+  font: inherit;
+  font-weight: 400;
+}
+
+.camera-field input:focus,
+.camera-field select:focus {
+  outline: none;
+  border-color: #64a9e4;
+  box-shadow: 0 0 0 3px rgba(22, 116, 209, 0.1);
+}
+
+.camera-field input::placeholder {
+  color: #98a9ba;
+}
+
+.camera-field small {
+  color: #7b8da1;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.camera-field-full {
+  grid-column: 1 / -1;
+}
+
+.camera-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #4d6278;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.camera-checkbox input {
+  width: 16px;
+  height: 16px;
+  accent-color: #1674d1;
+}
+
+.camera-form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-top: 4px;
+}
+
+.camera-message {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 14px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.camera-message-error {
+  color: #a72f3d;
+  background: #fff0f1;
+  border: 1px solid #f2cdd2;
+}
+
+.camera-message-success {
+  color: #136b48;
+  background: #eaf8f0;
+  border: 1px solid #c5e9d4;
+}
+
+.camera-message-warning {
+  color: #885b0c;
+  background: #fff8e8;
+  border: 1px solid #efdfb6;
+}
+
+.camera-filters {
+  align-items: center;
+}
+
+.camera-room-name {
+  color: #405871;
+  font-size: 12px;
+}
+
+.camera-edit-button {
+  min-height: 34px;
+  padding: 7px 11px;
+}
+
+.camera-table td,
+.camera-table th {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 850px) {
+  .camera-form-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .camera-field-full {
+    grid-column: auto;
+  }
+
+  .camera-summary-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .camera-header-actions {
+    justify-content: stretch;
+    width: 100%;
+  }
+
+  .camera-header-actions button {
+    flex: 1 1 auto;
+  }
+
+  .camera-summary-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .camera-editor {
+    padding: 16px;
+  }
+}
