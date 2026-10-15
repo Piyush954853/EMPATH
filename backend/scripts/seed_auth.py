@@ -1,3 +1,5 @@
+import os
+
 from sqlalchemy import select
 
 from app.core.database import SessionLocal
@@ -75,11 +77,27 @@ def seed_admin(db, admin_role):
     )
 
     if user is None:
+        initial_password = os.getenv(
+            "EMPATH_ADMIN_INITIAL_PASSWORD"
+        )
+
+        if not initial_password:
+            raise RuntimeError(
+                "Set EMPATH_ADMIN_INITIAL_PASSWORD before "
+                "creating the initial admin."
+            )
+
+        if len(initial_password) < 16:
+            raise RuntimeError(
+                "EMPATH_ADMIN_INITIAL_PASSWORD must be at "
+                "least 16 characters long."
+            )
+
         user = User(
             username="admin",
             email="admin@empath.local",
             role_id=admin_role.id,
-            password_hash=hash_password("***REMOVED***"),
+            password_hash=hash_password(initial_password),
             full_name="EMPATH Administrator",
             is_active=True,
         )
